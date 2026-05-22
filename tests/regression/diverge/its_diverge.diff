@@ -1,0 +1,101 @@
+--- a/build/tests/regression/diverge/kernel.dump
++++ b/build/tests/regression/diverge/kernel.dump
+@@ -79,69 +79,67 @@
+ 180000108: 13 35 2a 00 	sltiu	a0, s4, 0x2
+ 18000010c: 93 45 15 00 	xori	a1, a0, 0x1
+-180000110: 0b a5 15 00 	vx_split_n	a0, a1
++                        	vx_bar_add	0
+ 180000114: 63 8e 05 00 	beqz	a1, 0x180000130 <_Z11kernel_bodyP12kernel_arg_t+0xb8>
+ 180000118: 93 05 ea ff 	addi	a1, s4, -0x2
+ 18000011c: 13 b6 15 00 	seqz	a2, a1
+-180000120: 8b 25 16 00 	vx_split_n	a1, a2
++                        	vx_bar_add	1
+ 180000124: 63 04 06 02 	beqz	a2, 0x18000014c <_Z11kernel_bodyP12kernel_arg_t+0xd4>
+ 180000128: 93 8b 7b 00 	addi	s7, s7, 0x7
+ 18000012c: 6f 00 00 04 	j	0x18000016c <_Z11kernel_bodyP12kernel_arg_t+0xf4>
+ 180000130: 93 05 fa ff 	addi	a1, s4, -0x1
+ 180000134: 13 b6 15 00 	seqz	a2, a1
+-180000138: 8b 25 16 00 	vx_split_n	a1, a2
++                        	vx_bar_add	2
+ 18000013c: 63 0c 06 12 	beqz	a2, 0x180000274 <_Z11kernel_bodyP12kernel_arg_t+0x1fc>
+ 180000140: 93 8b 6b 00 	addi	s7, s7, 0x6
+-180000144: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	2
+ 180000148: 6f 00 80 02 	j	0x180000170 <_Z11kernel_bodyP12kernel_arg_t+0xf8>
+ 18000014c: 93 8b 8b 00 	addi	s7, s7, 0x8
+ 180000150: 37 06 00 80 	lui	a2, 0x80000
+ 180000154: 1b 06 e6 ff 	addiw	a2, a2, -0x2
+ 180000158: 33 36 46 01 	sltu	a2, a2, s4
+ 18000015c: b3 f6 cb 0e 	czero.nez	a3, s7, a2
+ 180000160: 13 07 60 00 	li	a4, 0x6
+ 180000164: 33 56 c7 0e 	czero.eqz	a2, a4, a2
+ 180000168: b3 6b d6 00 	or	s7, a2, a3
+-18000016c: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	1
+-180000170: 0b 30 05 00 	vx_join	a0
++                        	vx_bar_wait	0
+ 180000174: 13 85 7b 00 	addi	a0, s7, 0x7
+ 180000178: 33 26 80 00 	sgtz	a2, s0
+-18000017c: 8b 25 16 00 	vx_split_n	a1, a2
++                        	vx_bar_add	3
+ 180000180: 63 04 06 02 	beqz	a2, 0x1800001a8 <_Z11kernel_bodyP12kernel_arg_t+0x130>
+-180000184: 73 26 40 cc 	csrr	a2, tmask
+ 180000188: 93 86 0a 00 	mv	a3, s5
+ 18000018c: 03 a7 06 00 	lw	a4, 0x0(a3)
+ 180000190: 33 05 a7 00 	add	a0, a4, a0
+ 180000194: 93 86 46 00 	addi	a3, a3, 0x4
+ 180000198: 33 c7 66 01 	xor	a4, a3, s6
+ 18000019c: 13 37 17 00 	seqz	a4, a4
+-1800001a0: 8b 50 c7 00 	vx_pred_n	a4, a2
+ 1800001a4: e3 04 07 fe 	beqz	a4, 0x18000018c <_Z11kernel_bodyP12kernel_arg_t+0x114>
+-1800001a8: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	3
+ 1800001ac: 13 26 24 00 	slti	a2, s0, 0x2
+-1800001b0: 8b 25 16 00 	vx_split_n	a1, a2
++                        	vx_bar_add	4
+ 1800001b4: 63 0e 06 00 	beqz	a2, 0x1800001d0 <_Z11kernel_bodyP12kernel_arg_t+0x158>
+ 1800001b8: 93 26 14 00 	slti	a3, s0, 0x1
+-1800001bc: 0b a6 16 00 	vx_split_n	a2, a3
++                        	vx_bar_add	5
+ 1800001c0: 63 86 06 02 	beqz	a3, 0x1800001ec <_Z11kernel_bodyP12kernel_arg_t+0x174>
+ 1800001c4: 93 36 14 00 	seqz	a3, s0
+ 1800001c8: 33 05 d5 00 	add	a0, a0, a3
+ 1800001cc: 6f 00 40 02 	j	0x1800001f0 <_Z11kernel_bodyP12kernel_arg_t+0x178>
+ 1800001d0: 93 26 34 00 	slti	a3, s0, 0x3
+-1800001d4: 0b a6 16 00 	vx_split_n	a2, a3
++                        	vx_bar_add	6
+ 1800001d8: 63 84 06 0a 	beqz	a3, 0x180000280 <_Z11kernel_bodyP12kernel_arg_t+0x208>
+ 1800001dc: 93 16 15 00 	slli	a3, a0, 0x1
+ 1800001e0: 33 85 a6 00 	add	a0, a3, a0
+-1800001e4: 0b 30 06 00 	vx_join	a2
++                        	vx_bar_wait	6
+ 1800001e8: 6f 00 c0 00 	j	0x1800001f4 <_Z11kernel_bodyP12kernel_arg_t+0x17c>
+ 1800001ec: 13 05 f5 ff 	addi	a0, a0, -0x1
+-1800001f0: 0b 30 06 00 	vx_join	a2
++                        	vx_bar_wait	5
+-1800001f4: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	4
+ 1800001f8: 93 35 6a 00 	sltiu	a1, s4, 0x6
+ 1800001fc: 13 c6 15 00 	xori	a2, a1, 0x1
+-180000200: 8b 25 16 00 	vx_split_n	a1, a2
++                        	vx_bar_add	7
+ 180000204: 63 04 06 00 	beqz	a2, 0x18000020c <_Z11kernel_bodyP12kernel_arg_t+0x194>
+ 180000208: 03 aa 0a 00 	lw	s4, 0x0(s5)
+-18000020c: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	7
+ 180000210: 3b 05 aa 00 	addw	a0, s4, a0
+ 180000214: b3 25 25 01 	slt	a1, a0, s2
+ 180000218: 33 56 b5 0e 	czero.eqz	a2, a0, a1
+@@ -169,10 +167,10 @@
+ 180000270: 67 80 00 00 	ret
+ 180000274: 93 8b 5b 00 	addi	s7, s7, 0x5
+-180000278: 0b b0 05 00 	vx_join	a1
++                        	vx_bar_wait	2
+ 18000027c: 6f f0 5f ef 	j	0x180000170 <_Z11kernel_bodyP12kernel_arg_t+0xf8>
+ 180000280: 13 04 d4 ff 	addi	s0, s0, -0x3
+ 180000284: 93 16 25 00 	slli	a3, a0, 0x2
+ 180000288: b3 f6 86 0e 	czero.nez	a3, a3, s0
+ 18000028c: 33 05 d5 00 	add	a0, a0, a3
+-180000290: 0b 30 06 00 	vx_join	a2
++                        	vx_bar_wait	6
+ 180000294: 6f f0 1f f6 	j	0x1800001f4 <_Z11kernel_bodyP12kernel_arg_t+0x17c>
